@@ -1,0 +1,53 @@
+.notes-grid {
+  display: grid;
+  grid-template-columns: 20% 80%;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "Sidebar Main"
+    "Sidebar Main"
+    "Sidebar Main";
+}
+
+.notes-sidebar {
+  border: 1px solid saddlebrown;
+  grid-area: Sidebar;
+}
+.notes-mainbar {
+  border: 1px solid green;
+  grid-area: Main;
+}
+.notes-sidebar-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 3rem;
+}
+.notes-sidebar-icon-div {
+  display: flex;
+  align-items: center;
+  /* border: 1px solid black; */
+  /* width: 6rem; */
+  font-size: 1.25rem;
+  margin: 0.75rem 0;
+}
+.notes-sidebar-icon-div span {
+  padding-left: 1.25rem;
+}
+/* main */
+.notes-input {
+  width: 500px;
+  height: 150px;
+  font-size: 1.2rem;
+  padding: 0.5rem;
+}
+.notes-input[input] {
+  font-size: 1.24rem;
+}
+.notes-input-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
