@@ -13,8 +13,10 @@ const Hero = () => {
             <p>without any efforts.</p>
           </div>
           <div className="hero-btn-container">
-            <button className="btn btn-primary">Join Now</button>
-            <Link to="/">
+            <Link to="/signup">
+              <button className="btn btn-primary">Join Now</button>
+            </Link>
+            <Link to="/login">
               <p>Alreay Have an Account</p>
             </Link>
           </div>

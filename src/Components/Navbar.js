@@ -6,7 +6,9 @@ const Navbar = () => {
   return (
     <>
       <nav className="nav">
-        <h1 className="text-logo">NoteMan</h1>
+        <Link to="/">
+          <h1 className="text-logo">NoteMan</h1>
+        </Link>
         <Link to="/login">
           <button className="btn btn-primary">Login</button>
         </Link>

@@ -8,7 +8,9 @@
     "Sidebar Main"
     "Sidebar Main";
 }
-
+.px-1 {
+  padding: 0 1rem;
+}
 .notes-sidebar {
   border: 1px solid saddlebrown;
   grid-area: Sidebar;
@@ -50,4 +52,116 @@
   row-gap: 1rem;
   justify-content: center;
   align-items: center;
+}
+.allNotes-container {
+  margin: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 2rem;
+}
+.note-container {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 2rem 0.25rem;
+  flex-direction: column;
+  row-gap: 0.5rem;
+  border: 1px solid #d1d5db;
+  width: 30rem;
+}
+.notes-modal-hide {
+  display: none;
+}
+.notes-modal {
+  border: 1px solid #c1c1c1;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  width: 280px;
+  padding: 1rem 2rem;
+  transform: translate(-50%, -50%);
+  border-radius: 0.75rem;
+  background-color: #f9fafb;
+}
+.note-input {
+  width: 250px;
+  height: 25px;
+  padding: 0 1rem;
+}
+.note-textarea {
+  width: 16rem;
+  height: 5rem;
+}
+.notes-mainbar select {
+  width: 5rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+}
+.select-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1rem;
+}
+.addnotes-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+.notes-modal-closeBtn {
+  position: absolute;
+  right: 1%;
+  top: 3%;
+}
+.note-bottom-row {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.note-tag-container {
+  display: flex;
+}
+.tag-pill {
+  background-color: beige;
+  width: fit-content;
+  border-radius: 1rem;
+}
+.search-box {
+  width: 500px;
+  height: 40px;
+}
+.search-box-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4rem;
+}
+.filter-modal {
+  border: 1px solid #c1c1c1;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  width: 280px;
+  padding: 1rem 2rem;
+  transform: translate(-50%, -50%);
+  border-radius: 0.75rem;
+  background-color: #f9fafb;
+}
+.filter-modal-hide {
+  display: none;
+}
+.displayArchiveNotes {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  row-gap: 2rem;
 }
