@@ -24,7 +24,6 @@ const Notes = () => {
     tags: [],
   });
   const [showmodal, setShowmodal] = useState(false);
-  const [date, setDate] = useState(false);
   const [edit, setEdit] = useState(false);
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [editNote, setEditNoteInput] = useState({
@@ -35,8 +34,9 @@ const Notes = () => {
     tags: [],
   });
   const token = sessionStorage.getItem("token");
-  const { noteState, dispatch, sortTagArr } = useContext(NotesContext);
-  console.log(noteState);
+  const { noteState, dispatch, sortTagArr, isUserLoggedIn } =
+    useContext(NotesContext);
+  console.log(isUserLoggedIn);
   const dateobj = new Date();
   const currentDate = {
     day: dateobj.getDate().toString(),

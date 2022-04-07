@@ -5,9 +5,8 @@ const NotesContext = createContext({});
 const NotesContextProvider = ({ children }) => {
   const [notesData, setNotesData] = useState([]);
   const token = sessionStorage.getItem("token");
-  console.log(token);
-
   const [isUserLoggedIn, setUserLoggedIn] = useState(false);
+
   const getData = async () => {
     const response = await fetch("/api/notes", {
       method: "GET",
@@ -148,14 +147,29 @@ const NotesContextProvider = ({ children }) => {
     date: false,
     tagsFilter: [],
   });
+  const logoutUser = () => {
+    setUserLoggedIn(false);
+    sessionStorage.clear();
+  };
   useEffect(() => {
     getData();
   }, [noteState]);
   const prioritytArr = sortPriority(noteState, notesData);
   const sortdateArr = sortDate(noteState, prioritytArr);
   const sortTagArr = sortTag(noteState, sortdateArr);
+  useEffect(() => {
+    if (sessionStorage.getItem("token") === null) {
+      setUserLoggedIn(false);
+    } else if (sessionStorage.getItem("token") === "undefined") {
+      setUserLoggedIn(false);
+    } else {
+      setUserLoggedIn(true);
+    }
+  });
   return (
-    <NotesContext.Provider value={{ noteState, dispatch, sortTagArr }}>
+    <NotesContext.Provider
+      value={{ noteState, dispatch, sortTagArr, isUserLoggedIn, logoutUser }}
+    >
       {children}
     </NotesContext.Provider>
   );
