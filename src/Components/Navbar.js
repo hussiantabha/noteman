@@ -18,15 +18,20 @@ const Navbar = () => {
         <Link to="/">
           <h1 className="text-logo">NoteMan</h1>
         </Link>
-        {noteState.isUserLoggedIn ? (
-          <button className="btn btn-primary" onClick={logout}>
-            Logout
-          </button>
-        ) : (
-          <Link to="/login">
-            <button className="btn btn-primary">Login</button>
+        <div className="nav-btn-container">
+          <Link to={noteState.isUserLoggedIn ? "/notes" : "/login"}>
+            <h3>Your Notes</h3>
           </Link>
-        )}
+          {noteState.isUserLoggedIn ? (
+            <button className="btn btn-primary" onClick={logout}>
+              Logout
+            </button>
+          ) : (
+            <Link to="/login">
+              <button className="btn btn-primary">Login</button>
+            </Link>
+          )}
+        </div>
       </nav>
     </>
   );
