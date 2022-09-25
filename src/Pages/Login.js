@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../Components/Navbar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
+import { NotesContext } from "../Context/NotesContext";
 
 const Login = () => {
   let navigate = useNavigate();
   const [loginInput, setLoginInput] = useState({ email: "", password: "" });
+  const { noteState, dispatch } = useContext(NotesContext);
   const loginFunc = async () => {
     try {
       const postData = await fetch("/api/auth/login", {
@@ -57,6 +59,7 @@ const Login = () => {
         const convertedJSON = await postData.json();
         sessionStorage.setItem("token", convertedJSON.encodedToken);
         setLoginInput({ email: "", password: "" });
+        dispatch({ type: "userLoggedIn", payload: { value: true } });
         navigate("/notes");
       }
       if (postData.status === 404) {

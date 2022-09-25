@@ -5,7 +5,6 @@ const NotesContext = createContext({});
 const NotesContextProvider = ({ children }) => {
   const [notesData, setNotesData] = useState([]);
   const token = sessionStorage.getItem("token");
-  const [isUserLoggedIn, setUserLoggedIn] = useState(false);
 
   const getData = async () => {
     const response = await fetch("/api/notes", {
@@ -16,6 +15,7 @@ const NotesContextProvider = ({ children }) => {
     });
     const convertedJSON = await response.json();
     setNotesData(convertedJSON.notes);
+    dispatch({ type: "addNote", payload: { value: convertedJSON.notes } });
   };
   const noteReducerFunc = (state, action) => {
     //console.log(action.payload.value);
@@ -62,7 +62,6 @@ const NotesContextProvider = ({ children }) => {
       case "sortDate": {
         return { ...state, date: !state.date };
       }
-
       case "addTag": {
         return {
           ...state,
@@ -98,6 +97,9 @@ const NotesContextProvider = ({ children }) => {
           priority: false,
           date: false,
         };
+      }
+      case "userLoggedIn": {
+        return { ...state, isUserLoggedIn: action.payload.value };
       }
     }
   };
@@ -146,6 +148,7 @@ const NotesContextProvider = ({ children }) => {
     priority: false,
     date: false,
     tagsFilter: [],
+    isUserLoggedIn: false,
   });
   const logoutUser = () => {
     setUserLoggedIn(false);
@@ -159,16 +162,16 @@ const NotesContextProvider = ({ children }) => {
   const sortTagArr = sortTag(noteState, sortdateArr);
   useEffect(() => {
     if (sessionStorage.getItem("token") === null) {
-      setUserLoggedIn(false);
-    } else if (sessionStorage.getItem("token") === "undefined") {
-      setUserLoggedIn(false);
+      dispatch({ type: "userLoggedIn", payload: { value: false } });
+    } else if (sessionStorage.getItem("token") === undefined) {
+      dispatch({ type: "userLoggedIn", payload: { value: false } });
     } else {
-      setUserLoggedIn(true);
+      dispatch({ type: "userLoggedIn", payload: { value: true } });
     }
-  });
+  }, []);
   return (
     <NotesContext.Provider
-      value={{ noteState, dispatch, sortTagArr, isUserLoggedIn, logoutUser }}
+      value={{ noteState, dispatch, sortTagArr, logoutUser }}
     >
       {children}
     </NotesContext.Provider>
