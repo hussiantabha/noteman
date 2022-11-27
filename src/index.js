@@ -10,6 +10,7 @@ import SignUp from "./Pages/Signup";
 import { NotesContextProvider } from "./Context/NotesContext";
 import MockAPI from "./Components/MockMan";
 import Archive from "./Pages/Archive";
+import Trash from "./Pages/Trash";
 // Call make Server
 makeServer();
 
@@ -24,6 +25,7 @@ ReactDOM.render(
           <Route path="/signup" element={<SignUp />} />
           <Route path="/mock" element={<MockAPI />} />
           <Route path="/archive" element={<Archive />} />
+          <Route path="/trash" element={<Trash />} />
         </Routes>
       </BrowserRouter>
     </NotesContextProvider>
