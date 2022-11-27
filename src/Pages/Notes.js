@@ -22,6 +22,7 @@ const Notes = () => {
     tag1: "work",
     tag2: "1",
     tags: [],
+    color: "white",
   });
   const [showmodal, setShowmodal] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -33,10 +34,12 @@ const Notes = () => {
     tag2: "",
     tags: [],
   });
+  const token1 =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI3MWMyZTNjZS1hZjc1LTQzZjktYmMxMC01YTkyZWEwMTlkMTYiLCJlbWFpbCI6ImFkYXJzaGJhbGlrYUBnbWFpbC5jb20ifQ.re0XBuDv6B7NsL4J1bgWcBoW00B5FUICfNk5OxG4378";
   const token = sessionStorage.getItem("token");
   const { noteState, dispatch, sortTagArr, isUserLoggedIn } =
     useContext(NotesContext);
-  console.log(isUserLoggedIn);
+  //console.log(noteState);
   const dateobj = new Date();
   const currentDate = {
     day: dateobj.getDate().toString(),
@@ -52,10 +55,11 @@ const Notes = () => {
     const response = await fetch("/api/notes", {
       method: "GET",
       headers: {
-        authorization: token,
+        authorization: token1,
       },
     });
     const convertedJSON = await response.json();
+    console.log(convertedJSON);
   };
   const addNote = async () => {
     const postData = await fetch("/api/notes", {
@@ -70,11 +74,13 @@ const Notes = () => {
           note: noteInput.note,
           tags: [noteInput.tag1, noteInput.tag2],
           date: ss,
+          color: noteInput.color,
         },
       }),
     });
     if (postData.status === 201) {
       const convertedJSON = await postData.json();
+      console.log(convertedJSON);
       dispatch({ type: "addNote", payload: { value: convertedJSON.notes } });
     }
     setNoteInput({
@@ -150,6 +156,7 @@ const Notes = () => {
           title: noteInput.title,
           note: noteInput.note,
           tags: [noteInput.tag1, noteInput.tag2],
+          color: noteInput.color,
         },
       }),
     });
@@ -195,12 +202,27 @@ const Notes = () => {
       _id: item._id,
     });
   };
+  useEffect(() => {
+    (async () => {
+      const getData = await fetch("/api/notes", {
+        method: "GET",
+        headers: {
+          authorization: token1,
+        },
+      });
+      if (getData.status === 200) {
+        const convertedJSON = await getData.json();
+        console.log(convertedJSON);
+      }
+    })();
+  }, []);
+  // console.log(noteInput);
   return (
     <>
       <Navbar />
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={2000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -339,7 +361,7 @@ const Notes = () => {
             >
               <BiX />
             </div>
-            <label>Title</label>
+            <label className="label">Title</label>
             <input
               value={noteInput.title}
               type="text"
@@ -350,7 +372,7 @@ const Notes = () => {
                 })
               }
             />
-            <label>Note</label>
+            <label className="label">Note</label>
             <textarea
               className="note-textarea"
               value={noteInput.note}
@@ -387,8 +409,19 @@ const Notes = () => {
                   }
                 >
                   <option value="1">Low</option>
-                  <option value="2">medium</option>
+                  <option value="2">Medium</option>
                   <option value="3">High</option>
+                </select>
+              </div>
+              <div>
+                <select
+                  onChange={(e) =>
+                    setNoteInput((prev) => ({ ...prev, color: e.target.value }))
+                  }
+                >
+                  <option value="	#feff9c">Yellow</option>
+                  <option value="#7afcff">Blue</option>
+                  <option value="	#ff7eb9">Pink</option>
                 </select>
               </div>
             </div>
@@ -411,7 +444,10 @@ const Notes = () => {
               sortTagArr.map((item) => {
                 return (
                   <>
-                    <section className="note-container">
+                    <section
+                      style={{ backgroundColor: item.color }}
+                      className="note-container"
+                    >
                       <h2>{item.title}</h2>
                       <p>{item.note}</p>
                       <div className="note-bottom-row">
@@ -438,13 +474,22 @@ const Notes = () => {
                         </div>
                         <span>{displayDate}</span>
                         <div className="note-icon-container">
-                          <button onClick={() => postArchive(item)}>
+                          <button
+                            className="icon-btn"
+                            onClick={() => postArchive(item)}
+                          >
                             <BiArchive className="px-1" />
                           </button>
-                          <button onClick={() => deleteNote(item)}>
+                          <button
+                            className="icon-btn"
+                            onClick={() => deleteNote(item)}
+                          >
                             <BiTrashAlt className="px-1" />
                           </button>
-                          <button onClick={() => showEditModal(item)}>
+                          <button
+                            className="icon-btn"
+                            onClick={() => showEditModal(item)}
+                          >
                             <BiEditAlt />
                           </button>
                         </div>

@@ -1,23 +1,29 @@
 .notes-grid {
-  display: grid;
+  /* display: grid;
   grid-template-columns: 20% 80%;
   grid-template-rows: 1fr 1fr 1fr;
   gap: 0px 0px;
   grid-template-areas:
     "Sidebar Main"
     "Sidebar Main"
-    "Sidebar Main";
+    "Sidebar Main"; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 .px-1 {
   padding: 0 1rem;
 }
 .notes-sidebar {
-  border: 1px solid saddlebrown;
-  grid-area: Sidebar;
+  flex-grow: 0;
+  margin-top: 4rem;
 }
 .notes-mainbar {
-  border: 1px solid green;
-  grid-area: Main;
+  border: 1px solid #22d3ee;
+  border-radius: 0.25rem;
+  margin-right: 1rem;
+  flex-grow: 1;
+  margin-top: 4rem;
 }
 .notes-sidebar-container {
   display: flex;
@@ -60,15 +66,18 @@
   justify-content: center;
   align-items: center;
   row-gap: 2rem;
+  width: 100%;
 }
 .note-container {
   display: flex;
   justify-content: space-evenly;
-  padding: 2rem 0.25rem;
+  padding: 2rem;
   flex-direction: column;
-  row-gap: 0.5rem;
+  row-gap: 1rem;
   border: 1px solid #d1d5db;
-  width: 30rem;
+  border-radius: 0.25rem;
+  width: 50%;
+  flex-wrap: wrap;
 }
 .notes-modal-hide {
   display: none;
@@ -77,24 +86,30 @@
   border: 1px solid #c1c1c1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   position: fixed;
   z-index: 1;
   top: 50%;
   left: 50%;
-  width: 280px;
+  width: 320px;
+  height: 23rem;
   padding: 1rem 2rem;
   transform: translate(-50%, -50%);
   border-radius: 0.75rem;
   background-color: #f9fafb;
 }
 .note-input {
-  width: 250px;
-  height: 25px;
+  width: 18rem;
+  height: 30px;
+  margin: 0.5rem 0;
   padding: 0 1rem;
+  border-radius: 0.4rem;
+  border: 1px solid #64748b;
 }
 .note-textarea {
-  width: 16rem;
+  width: 18rem;
   height: 5rem;
+  border: 1px solid #64748b;
 }
 .notes-mainbar select {
   width: 5rem;
@@ -103,8 +118,8 @@
 }
 .select-container {
   display: flex;
-  justify-content: space-around;
-  margin-top: 1rem;
+  justify-content: space-evenly;
+  margin: 1.25rem 0;
 }
 .addnotes-btn-container {
   display: flex;
@@ -120,11 +135,14 @@
 .note-bottom-row {
   margin-top: 1rem;
   display: flex;
+  flex-wrap: wrap;
+  row-gap: 1rem;
   justify-content: space-between;
   align-items: center;
 }
 .note-tag-container {
   display: flex;
+  column-gap: 0.5rem;
 }
 .tag-pill {
   background-color: beige;
@@ -132,14 +150,18 @@
   border-radius: 1rem;
 }
 .search-box {
-  width: 500px;
-  height: 40px;
+  width: 31rem;
+  height: 2.5rem;
+  padding: 0 1rem;
+  border-radius: 0.25rem;
+  border: 1px solid #64748b;
 }
 .search-box-container {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 4rem;
+  column-gap: 1rem;
 }
 .filter-modal {
   border: 1px solid #c1c1c1;
@@ -164,4 +186,32 @@
   justify-content: center;
   align-items: center;
   row-gap: 2rem;
+}
+.label {
+  font-weight: 600;
+}
+select {
+  font-weight: 500;
+  padding: 0.4rem;
+}
+.note-icon-container {
+  display: flex;
+  column-gap: 0.5rem;
+}
+.icon-btn {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.25rem;
+}
+@media only screen and (max-width: 780px) {
+  .notes-mainbar {
+    width: 100%;
+  }
+  .notes-sidebar {
+    border: none;
+    margin-bottom: 2rem;
+  }
+  .notes-mainbar {
+    margin: 1.5rem;
+  }
 }
