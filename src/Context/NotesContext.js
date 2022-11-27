@@ -44,6 +44,18 @@ const NotesContextProvider = ({ children }) => {
       case "deleteArchiveNotes": {
         return { ...state };
       }
+      case "getTrash": {
+        return { ...state, trashNotes: action.payload.value };
+      }
+      case "postTrash": {
+        return { ...state, trashNotes: action.payload.value };
+      }
+      case "restoreTrash": {
+        return { ...state, trashNotes: action.payload.value };
+      }
+      case "deleteTrash": {
+        return { ...state, trashNotes: action.payload.value };
+      }
       case "workValue": {
         return { ...state, workValue: !state.workValue };
       }
@@ -139,6 +151,7 @@ const NotesContextProvider = ({ children }) => {
   const [noteState, dispatch] = useReducer(noteReducerFunc, {
     notes: [],
     archiveNotes: [],
+    trashNotes: [],
     edit: false,
     editNote: "",
     workValue: false,

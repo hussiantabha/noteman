@@ -4,14 +4,7 @@ import Navbar from "../Components/Navbar";
 import { NotesContext } from "../Context/NotesContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {
-  BiHome,
-  BiLabel,
-  BiArchive,
-  BiTrashAlt,
-  BiX,
-  BiEditAlt,
-} from "react-icons/bi";
+import { BiTrashAlt } from "react-icons/bi";
 
 const Archive = () => {
   const token = sessionStorage.getItem("token");
@@ -87,7 +80,10 @@ const Archive = () => {
           noteState.archiveNotes.map((item) => {
             return (
               <>
-                <section className="note-container">
+                <section
+                  style={{ backgroundColor: item.color }}
+                  className="note-container"
+                >
                   <h2>{item.title}</h2>
                   <p>{item.note}</p>
                   <div className="note-bottom-row">

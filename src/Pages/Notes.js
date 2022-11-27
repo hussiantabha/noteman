@@ -92,15 +92,20 @@ const Notes = () => {
     setShowmodal(false);
   };
   const deleteNote = async (note) => {
-    const postData = await fetch(`/api/notes/${note._id}`, {
-      method: "DELETE",
+    const postData = await fetch(`/api/notes/trash/${note._id}`, {
+      method: "POST",
       headers: {
-        authorization: token,
+        authorization: token1,
       },
+      body: JSON.stringify({
+        note,
+      }),
     });
+    console.log(postData);
     if (postData.status === 200) {
       const convertedJSON = await postData.json();
-      dispatch({ type: "deleteNote", payload: { value: convertedJSON.notes } });
+      console.log(convertedJSON);
+      // dispatch({ type: "deleteNote", payload: { value: convertedJSON.notes } });
       toast.success("Note Deleted", {
         position: "top-right",
         autoClose: 5000,
@@ -171,6 +176,7 @@ const Notes = () => {
         tags: [],
       });
       setShowmodal(false);
+      setEdit(false);
     }
   };
   const postArchive = async (note) => {
@@ -237,7 +243,9 @@ const Notes = () => {
         <aside className="notes-sidebar">
           <div className="notes-sidebar-container">
             <div className="notes-sidebar-icon-div">
-              <BiHome /> <span>Home</span>
+              <Link to="/notes">
+                <BiHome /> <span>Home</span>
+              </Link>
             </div>
             <div className="notes-sidebar-icon-div">
               <BiLabel /> <span>Label</span>
@@ -248,7 +256,9 @@ const Notes = () => {
               </Link>
             </div>
             <div className="notes-sidebar-icon-div">
-              <BiTrashAlt /> <span>Trash</span>
+              <Link to="/trash">
+                <BiTrashAlt /> <span>Trash</span>
+              </Link>
             </div>
             <div className="notes-sidebar-icon-div">
               <CgProfile /> <span>Profile</span>
