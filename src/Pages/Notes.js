@@ -39,7 +39,7 @@ const Notes = () => {
   const token = sessionStorage.getItem("token");
   const { noteState, dispatch, sortTagArr, isUserLoggedIn } =
     useContext(NotesContext);
-  // console.log(isUserLoggedIn);
+
   const dateobj = new Date();
   const currentDate = {
     day: dateobj.getDate().toString(),
@@ -77,7 +77,6 @@ const Notes = () => {
       }),
     });
     if (postData.status === 201) {
-      console.log("loading");
       const convertedJSON = await postData.json();
       dispatch({ type: "addNote", payload: { value: convertedJSON.notes } });
     }
@@ -219,14 +218,11 @@ const Notes = () => {
   }, []);
   useEffect(() => {
     if (token === null) {
-      console.log("is Null");
       dispatch({ type: "userLoggedIn", payload: { value: false } });
     } else {
-      console.log(true);
       dispatch({ type: "userLoggedIn", payload: { value: true } });
     }
   }, []);
-  console.log(noteState.isUserLoggedIn);
   return (
     <>
       {noteState.isUserLoggedIn ? (
