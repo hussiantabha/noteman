@@ -12,7 +12,7 @@ import { CgProfile } from "react-icons/cg";
 import "../App.css";
 import { useContext } from "react";
 import { NotesContext } from "../Context/NotesContext";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const Notes = () => {
@@ -527,7 +527,7 @@ const Notes = () => {
           </section>
         </>
       ) : (
-        <h1>Please Log In</h1>
+        <Navigate to={"/login"} />
       )}
     </>
   );
