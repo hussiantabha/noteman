@@ -12,10 +12,11 @@ import { CgProfile } from "react-icons/cg";
 import "../App.css";
 import { useContext } from "react";
 import { NotesContext } from "../Context/NotesContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const Notes = () => {
+  const navigate = useNavigate();
   const [noteInput, setNoteInput] = useState({
     title: "",
     note: "",
@@ -27,6 +28,7 @@ const Notes = () => {
   const [showmodal, setShowmodal] = useState(false);
   const [edit, setEdit] = useState(false);
   const [showFilterModal, setShowFilterModal] = useState(false);
+  const [user1, setUser1] = useState(true);
   const [editNote, setEditNoteInput] = useState({
     title: "",
     note: "",
@@ -39,7 +41,7 @@ const Notes = () => {
   const token = sessionStorage.getItem("token");
   const { noteState, dispatch, sortTagArr, isUserLoggedIn } =
     useContext(NotesContext);
-  // console.log(isUserLoggedIn);
+
   const dateobj = new Date();
   const currentDate = {
     day: dateobj.getDate().toString(),
@@ -77,7 +79,6 @@ const Notes = () => {
       }),
     });
     if (postData.status === 201) {
-      console.log("loading");
       const convertedJSON = await postData.json();
       dispatch({ type: "addNote", payload: { value: convertedJSON.notes } });
     }
@@ -218,15 +219,20 @@ const Notes = () => {
     })();
   }, []);
   useEffect(() => {
-    if (token === null) {
-      console.log("is Null");
-      dispatch({ type: "userLoggedIn", payload: { value: false } });
-    } else {
-      console.log(true);
+    if (token !== null) {
       dispatch({ type: "userLoggedIn", payload: { value: true } });
+    } else {
     }
+    // if (token === null) {
+    //   setUser1(false);
+    //   dispatch({ type: "userLoggedIn", payload: { value: false } });
+    // } else if (token === undefined) {
+    //   console.log("undefined");
+    // } else {
+    //   setUser1(true);
+    //   dispatch({ type: "userLoggedIn", payload: { value: true } });
+    // }
   }, []);
-  console.log(noteState.isUserLoggedIn);
   return (
     <>
       {noteState.isUserLoggedIn ? (
@@ -243,7 +249,6 @@ const Notes = () => {
             draggable
             pauseOnHover
           />
-          {/* Same as */}
           <ToastContainer />
           <section className="notes-grid">
             <aside className="notes-sidebar">
@@ -527,7 +532,7 @@ const Notes = () => {
           </section>
         </>
       ) : (
-        <h1>Please Log In</h1>
+        navigate("/login")
       )}
     </>
   );

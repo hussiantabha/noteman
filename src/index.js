@@ -11,6 +11,7 @@ import { NotesContextProvider } from "./Context/NotesContext";
 import MockAPI from "./Components/MockMan";
 import Archive from "./Pages/Archive";
 import Trash from "./Pages/Trash";
+import ErrorPage from "./Pages/ErrorPage";
 // Call make Server
 makeServer();
 
@@ -26,6 +27,7 @@ ReactDOM.render(
           <Route path="/mock" element={<MockAPI />} />
           <Route path="/archive" element={<Archive />} />
           <Route path="/trash" element={<Trash />} />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
     </NotesContextProvider>
