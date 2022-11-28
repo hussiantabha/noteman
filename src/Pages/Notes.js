@@ -12,10 +12,11 @@ import { CgProfile } from "react-icons/cg";
 import "../App.css";
 import { useContext } from "react";
 import { NotesContext } from "../Context/NotesContext";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const Notes = () => {
+  const navigate = useNavigate();
   const [noteInput, setNoteInput] = useState({
     title: "",
     note: "",
@@ -27,6 +28,7 @@ const Notes = () => {
   const [showmodal, setShowmodal] = useState(false);
   const [edit, setEdit] = useState(false);
   const [showFilterModal, setShowFilterModal] = useState(false);
+  const [user1, setUser1] = useState(true);
   const [editNote, setEditNoteInput] = useState({
     title: "",
     note: "",
@@ -217,11 +219,19 @@ const Notes = () => {
     })();
   }, []);
   useEffect(() => {
-    if (token === null) {
-      dispatch({ type: "userLoggedIn", payload: { value: false } });
-    } else {
+    if (token !== null) {
       dispatch({ type: "userLoggedIn", payload: { value: true } });
+    } else {
     }
+    // if (token === null) {
+    //   setUser1(false);
+    //   dispatch({ type: "userLoggedIn", payload: { value: false } });
+    // } else if (token === undefined) {
+    //   console.log("undefined");
+    // } else {
+    //   setUser1(true);
+    //   dispatch({ type: "userLoggedIn", payload: { value: true } });
+    // }
   }, []);
   return (
     <>
@@ -239,7 +249,6 @@ const Notes = () => {
             draggable
             pauseOnHover
           />
-          {/* Same as */}
           <ToastContainer />
           <section className="notes-grid">
             <aside className="notes-sidebar">
@@ -523,7 +532,7 @@ const Notes = () => {
           </section>
         </>
       ) : (
-        <Navigate to={"/login"} />
+        navigate("/login")
       )}
     </>
   );
